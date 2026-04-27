@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(venv/Scripts/python manage.py makemigrations)",
+      "Bash(venv/Scripts/python manage.py migrate)",
+      "Bash(venv/bin/python manage.py makemigrations)",
+      "Bash(venv/bin/python manage.py migrate)",
+      "Bash(venv/bin/python --version)",
+      "Bash(venv/bin/python3.12 manage.py makemigrations)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(gh repo *)",
+      "Bash(gh api *)",
+      "Bash(python -c \"import sys,json; [print\\(f['name']\\) for f in json.load\\(sys.stdin\\)]\")"
+    ]
+  }
+}

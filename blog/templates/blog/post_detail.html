@@ -1,0 +1,42 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }} — sharvilak_writes{% endblock %}
+
+{% block extra_css %}
+<style>
+    .post-header { margin-bottom: 2.5rem; }
+    .post-header h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 0.5rem; }
+    .post-meta { font-size: 0.85rem; color: #888; }
+    .post-body { font-size: 1.1rem; line-height: 1.8; }
+    .post-body p { margin-bottom: 1.25rem; }
+    .post-actions { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #eee; display: flex; gap: 1rem; font-size: 0.9rem; }
+    .post-actions a { text-decoration: none; border-bottom: 1px solid currentColor; }
+    .delete-link { color: #c0392b; }
+    .back-link { margin-top: 2.5rem; display: inline-block; font-size: 0.9rem; color: #888; text-decoration: none; }
+    .back-link:hover { color: #222; }
+</style>
+{% endblock %}
+
+{% block content %}
+    <article>
+        <header class="post-header">
+            <h1>{{ post.title }}</h1>
+            <p class="post-meta">{{ post.date_posted|date:"F j, Y" }}</p>
+        </header>
+
+        <div class="post-body">
+            {% for paragraph in post.content.splitlines %}
+                {% if paragraph %}<p>{{ paragraph }}</p>{% endif %}
+            {% endfor %}
+        </div>
+
+        {% if user.is_authenticated and user == post.author %}
+            <div class="post-actions">
+                <a href="{% url 'post-update' post.pk %}">Edit</a>
+                <a href="{% url 'post-delete' post.pk %}" class="delete-link">Delete</a>
+            </div>
+        {% endif %}
+    </article>
+
+    <a href="/" class="back-link">&larr; All posts</a>
+{% endblock %}

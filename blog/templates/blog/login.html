@@ -1,0 +1,42 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Login — sharvilak_writes{% endblock %}
+
+{% block extra_css %}
+<style>
+    h1 { font-size: 1.75rem; margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.4rem; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
+    input[type="text"], input[type="password"] {
+        width: 100%; padding: 0.65rem 0.75rem;
+        border: 1px solid #ccc; font-family: Georgia, serif; font-size: 1rem;
+        outline: none; max-width: 380px;
+    }
+    input:focus { border-color: #222; }
+    .errorlist { list-style: none; color: #c0392b; font-size: 0.85rem; margin-bottom: 1rem; }
+    button[type="submit"] {
+        margin-top: 0.5rem; padding: 0.65rem 1.5rem; background: #222; color: #fff;
+        border: none; font-size: 1rem; cursor: pointer;
+    }
+    button[type="submit"]:hover { background: #000; }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <ul class="errorlist">
+                <li>Invalid username or password.</li>
+            </ul>
+        {% endif %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <button type="submit">Log in</button>
+    </form>
+{% endblock %}

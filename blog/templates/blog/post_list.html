@@ -1,0 +1,53 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}sharvilak_writes{% endblock %}
+
+{% block extra_css %}
+<style>
+    .post-item { border-bottom: 1px solid #eee; padding: 2rem 0; }
+    .post-item:last-child { border-bottom: none; }
+    .post-title { font-size: 1.5rem; margin-bottom: 0.4rem; }
+    .post-title a { text-decoration: none; }
+    .post-title a:hover { text-decoration: underline; }
+    .post-meta { font-size: 0.85rem; color: #888; margin-bottom: 0.75rem; }
+    .post-excerpt { color: #444; }
+    .read-more { display: inline-block; margin-top: 0.75rem; font-size: 0.9rem; text-decoration: none; border-bottom: 1px solid #222; }
+
+    .pagination { display: flex; gap: 1rem; margin-top: 3rem; font-size: 0.9rem; }
+
+    .empty-state { text-align: center; padding: 4rem 0; color: #888; }
+</style>
+{% endblock %}
+
+{% block content %}
+    {% if posts %}
+        {% for post in posts %}
+            <article class="post-item">
+                <h2 class="post-title">
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                </h2>
+                <p class="post-meta">{{ post.date_posted|date:"F j, Y" }}</p>
+                <p class="post-excerpt">{{ post.content|truncatewords:40 }}</p>
+                <a href="{{ post.get_absolute_url }}" class="read-more">Read more &rarr;</a>
+            </article>
+        {% endfor %}
+
+        {% if is_paginated %}
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">&larr; Newer</a>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Older &rarr;</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="empty-state">
+            <p>No posts yet.</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'post-create' %}">Write the first one &rarr;</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

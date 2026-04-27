@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Delete Post — sharvilak_writes{% endblock %}
+
+{% block extra_css %}
+<style>
+    h1 { font-size: 1.75rem; margin-bottom: 1rem; }
+    p { color: #444; margin-bottom: 2rem; }
+    .form-actions { display: flex; gap: 1rem; align-items: center; }
+    button[type="submit"] {
+        padding: 0.65rem 1.5rem; background: #c0392b; color: #fff;
+        border: none; font-size: 1rem; cursor: pointer;
+    }
+    button[type="submit"]:hover { background: #a93226; }
+    .cancel-link { font-size: 0.9rem; color: #888; text-decoration: none; }
+    .cancel-link:hover { color: #222; }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1>Delete "{{ object.title }}"?</h1>
+    <p>This cannot be undone.</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit">Yes, delete it</button>
+            <a href="{{ object.get_absolute_url }}" class="cancel-link">Cancel</a>
+        </div>
+    </form>
+{% endblock %}

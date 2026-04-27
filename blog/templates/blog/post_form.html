@@ -1,0 +1,50 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{% if object %}Edit Post{% else %}New Post{% endif %} — sharvilak_writes{% endblock %}
+
+{% block extra_css %}
+<style>
+    h1 { font-size: 1.75rem; margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.5rem; }
+    label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.4rem; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
+    input[type="text"], textarea {
+        width: 100%; padding: 0.65rem 0.75rem;
+        border: 1px solid #ccc; font-family: Georgia, serif; font-size: 1rem;
+        outline: none; transition: border-color 0.15s;
+    }
+    input[type="text"]:focus, textarea:focus { border-color: #222; }
+    textarea { min-height: 400px; resize: vertical; }
+    .errorlist { list-style: none; color: #c0392b; font-size: 0.85rem; margin-top: 0.35rem; }
+    .form-actions { display: flex; gap: 1rem; align-items: center; margin-top: 2rem; }
+    button[type="submit"] {
+        padding: 0.65rem 1.5rem; background: #222; color: #fff;
+        border: none; font-size: 1rem; cursor: pointer;
+    }
+    button[type="submit"]:hover { background: #000; }
+    .cancel-link { font-size: 0.9rem; color: #888; text-decoration: none; }
+    .cancel-link:hover { color: #222; }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1>{% if object %}Edit Post{% else %}New Post{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <div class="form-actions">
+            <button type="submit">{% if object %}Save Changes{% else %}Publish{% endif %}</button>
+            <a href="{% if object %}{{ object.get_absolute_url }}{% else %}/{% endif %}" class="cancel-link">Cancel</a>
+        </div>
+    </form>
+{% endblock %}
