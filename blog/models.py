@@ -9,6 +9,11 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    # Instagram specific fields
+    instagram_url = models.URLField(blank=True, null=True)
+    image = models.ImageField(upload_to='instagram_posts/', blank=True, null=True)
+    is_instagram = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-date_posted']

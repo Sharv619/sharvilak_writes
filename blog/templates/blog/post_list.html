@@ -27,6 +27,13 @@
                     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
                 </h2>
                 <p class="post-meta">{{ post.date_posted|date:"F j, Y" }}</p>
+                
+                {% if post.image %}
+                    <div class="post-image" style="margin-bottom: 1rem;">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 100%; height: auto; border-radius: 4px;">
+                    </div>
+                {% endif %}
+                
                 <p class="post-excerpt">{{ post.content|truncatewords:40 }}</p>
                 <a href="{{ post.get_absolute_url }}" class="read-more">Read more &rarr;</a>
             </article>

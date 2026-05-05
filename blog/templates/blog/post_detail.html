@@ -24,6 +24,12 @@
             <p class="post-meta">{{ post.date_posted|date:"F j, Y" }}</p>
         </header>
 
+        {% if post.image %}
+            <div class="post-image" style="margin-bottom: 2rem;">
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            </div>
+        {% endif %}
+
         <div class="post-body">
             {% for paragraph in post.content.splitlines %}
                 {% if paragraph %}<p>{{ paragraph }}</p>{% endif %}
