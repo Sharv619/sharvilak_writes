@@ -8,7 +8,7 @@
     }
   ],
   "functions": {
-    "api/index.py": {
+    "api/**/*.py": {
       "excludeFiles": "{.claude/**,.git/**,venv/**,staticfiles/**,knowledge_base/media/**,knowledge_base/scraped_posts/**,knowledge_base/scripts/**,**/__pycache__/**,**/*.pyc,db.sqlite3}"
     }
   }
